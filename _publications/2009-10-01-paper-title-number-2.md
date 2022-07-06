@@ -1,10 +1,8 @@
 ---
-title: "Adversarial Watermarking Transformer: Towards Tracing Text Provenance with Data Hiding"
+title: "ML-PersRef: A Machine Learning-based Personalized Multimodal Fusion Approach for Referencing Outside Objects From a Moving Vehicle"
 collection: publications
-authors: 'Sahar Abdelnabi and Mario Fritz'
-venue: "S&P'21"
-video: 'https://www.youtube.com/watch?v=3wvgds9bYg4' 
-short: 'https://www.youtube.com/watch?v=_Wc2OLVfD7Q'
-code: 'https://github.com/S-Abdelnabi/awt'
-paperurl: 'https://arxiv.org/abs/2009.03015'
+authors: 'Amr Gomaa, Guillermo Reyes, and Michael Feld'
+venue: "ICMI'21"
+code: 'https://github.com/amrgomaaelhady/ML-PersRef'
+paperurl: 'https://doi.org/10.1145/3462244.3479910'
 ---
