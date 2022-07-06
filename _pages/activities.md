@@ -7,7 +7,7 @@ author_profile: true
 
 ## Reviewing
 * NordiCHI 2022
-* AutomotiveUI 2021 & AutomotiveUI 2022
+* AutoUI 2021 & AutoUI 2022
 * CHI PLAY 2021
 * ICMI 2021
 * IEEE AIVR 2021
