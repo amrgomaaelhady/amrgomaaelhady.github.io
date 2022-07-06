@@ -1,10 +1,8 @@
 ---
-title: "VisualPhishNet: Zero-Day Phishing Website Detection by Visual Similarity"
+title: "Studying Person-Specific Pointing and Gaze Behavior for Multimodal Referencing of Outside Objects from a Moving Vehicle"
 collection: publications
-authors: 'Sahar Abdelnabi, Katharina Krombholz, and Mario Fritz'
-venue: "CCS'20"
-video: 'https://dl.acm.org/doi/10.1145/3372297.3417233' 
-code: 'https://github.com/S-Abdelnabi/VisualPhishNet'
-page: 'https://s-abdelnabi.github.io/VisualPhishNet/'
-paperurl: 'https://arxiv.org/abs/1909.00300'
+authors: 'Amr Gomaa, Guillermo Reyes, Alexandra Alles, Lydia Rupp, and Michael Feld'
+venue: "ICMI'20"
+code: 'https://github.com/amrgomaaelhady/ML-PersRef'
+paperurl: 'https://doi.org/10.1145/3382507.3418817'
 ---
