@@ -5,6 +5,8 @@ permalink: /activities/
 author_profile: true
 ---
 
+## Committee Member
+
 * AC (Associate Chair) member of AutomotiveUI WIP 2023
 * PC (Program Committee) member of HITLAML 2023 Workshop
 
