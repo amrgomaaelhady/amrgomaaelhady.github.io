@@ -8,8 +8,6 @@ redirect_from:
   - /about.html
 ---
 
-## Short Bio
-
 Hi!
 
 I am Amr and I am a Doctoral Researcher at [German Research Center for Artificial Intelligence](https://dfki.de/en/web), supervised by [Prof. Dr. Antonio Krüger](https://www.dfki.de/~krueger/) and advised by [Dr.-Ing. Michael Feld](https://www.dfki.de/web/ueber-uns/mitarbeiter/person/mife02). I have obtained my MSc degree in Computer Science at [Saarland University](https://www.uni-saarland.de/en/home.html). 
