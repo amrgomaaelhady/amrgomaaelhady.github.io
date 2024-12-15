@@ -10,7 +10,8 @@ redirect_from:
 
 Hi!
 
-I am Amr and I am a Doctoral Researcher at [German Research Center for Artificial Intelligence](https://dfki.de/en/web), supervised by [Prof. Dr. Antonio Krüger](https://www.dfki.de/~krueger/) and advised by [Dr.-Ing. Michael Feld](https://www.dfki.de/web/ueber-uns/mitarbeiter/person/mife02). I have obtained my MSc degree in Computer Science at [Saarland University](https://www.uni-saarland.de/en/home.html). 
+I am Amr and I am a Doctoral Researcher at the [German Research Center for Artificial Intelligence](https://dfki.de/en/web), supervised by [Prof. Dr. Antonio Krüger](https://www.dfki.de/~krueger/) and advised by [Dr.-Ing. Michael Feld](https://www.dfki.de/web/ueber-uns/mitarbeiter/person/mife02). I am also a Machine Learning Visiting Researcher at the [Machine Intelligence Laboratory,
+Cambridge University, Department of Engineering](https://www.eng.cam.ac.uk/) supervised by [Prof. Dr. Per Ola Kristensson](https://pokristensson.com/). I have obtained my MSc degree in Computer Science at [Saarland University](https://www.uni-saarland.de/en/home.html). 
 
 My research focus is User-centered Artificial Intelligence, Model-Adaptation, and Incremental Learning approaches. My work spans several learning methodologies and domains such as artificial intelligence, machine learning, reinforcement learning, incremental learning in robotics, automotive, and human-computer interaction applications. You can find more details in my research statement below. For publications, please check my CV and google scholar.
 
