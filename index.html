@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Amr Gomaa — Senior ML Security Engineer · Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg:         oklch(98.5% 0.005 230);
+    --bg-alt:     oklch(96%   0.008 230);
+    --bg-dark:    oklch(22%   0.025 245);
+    --ink:        oklch(20%   0.015 245);
+    --ink-mid:    oklch(42%   0.012 245);
+    --ink-muted:  oklch(62%   0.008 245);
+    --accent:     oklch(52%   0.16  196);
+    --accent-lt:  oklch(94%   0.06  196);
+    --accent-dk:  oklch(38%   0.16  196);
+    --rule:       oklch(90%   0.006 230);
+    --card:       oklch(100%  0     0);
+    --ff-sans:    'DM Sans',  system-ui, sans-serif;
+    --ff-mono:    'DM Mono',  monospace;
+    --ff-serif:   'DM Serif Display', Georgia, serif;
+    --r:          6px;
+    --nav-h:      58px;
+    --max:        900px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--ff-sans); background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; }
+
+  /* ── NAV ── */
+  #nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: var(--nav-h);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 clamp(1.5rem, 5vw, 3.5rem);
+    transition: background .3s, box-shadow .3s;
+  }
+  #nav.scrolled {
+    background: oklch(99% .004 230 / .92);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 1px 0 var(--rule);
+  }
+  .nav-logo {
+    font-family: var(--ff-mono); font-size: .8rem;
+    letter-spacing: .05em; color: var(--ink-mid);
+    transition: color .2s;
+  }
+  .nav-logo:hover { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: .78rem; font-weight: 500;
+    letter-spacing: .04em; text-transform: uppercase;
+    color: var(--ink-muted); transition: color .2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+  @media (max-width: 640px) { .nav-links { display: none; } }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100svh;
+    background: var(--bg);
+    display: grid; grid-template-rows: 1fr auto;
+    padding: 0 clamp(1.5rem, 6vw, 5rem);
+    position: relative; overflow: hidden;
+  }
+  /* light grid */
+  #hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(var(--rule) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: .5;
+  }
+  /* teal bleed top-right */
+  #hero::after {
+    content: ''; position: absolute;
+    top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, oklch(92% .10 196 / .35) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: var(--max); margin: 0 auto; width: 100%;
+    padding-top: calc(var(--nav-h) + 5rem);
+    padding-bottom: 3rem;
+    display: flex; flex-direction: column; gap: 1.8rem;
+    position: relative; z-index: 1;
+  }
+  .hero-eyebrow {
+    font-family: var(--ff-mono); font-size: .72rem;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent);
+    display: flex; align-items: center; gap: .7rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 24px; height: 1.5px; background: var(--accent);
+  }
+  h1.hero-name {
+    font-family: var(--ff-serif);
+    font-size: clamp(3rem, 7.5vw, 5.8rem);
+    font-weight: 400; line-height: 1.0;
+    color: var(--ink); letter-spacing: -.02em;
+  }
+  h1.hero-name em { font-style: italic; color: var(--accent); }
+  .hero-tagline {
+    font-size: clamp(.95rem, 1.8vw, 1.12rem);
+    font-weight: 300; color: var(--ink-mid);
+    max-width: 580px; line-height: 1.7;
+  }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: .45rem;
+  }
+  .hero-tag {
+    font-family: var(--ff-mono); font-size: .68rem;
+    letter-spacing: .04em;
+    padding: .28rem .7rem;
+    border: 1px solid oklch(82% .06 196);
+    border-radius: 100px;
+    color: var(--accent-dk);
+    background: var(--accent-lt);
+    transition: all .2s;
+  }
+  .hero-tag:hover { background: oklch(88% .10 196); }
+  .hero-cta { display: flex; gap: .9rem; flex-wrap: wrap; margin-top: .4rem; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-family: var(--ff-sans); font-size: .8rem; font-weight: 500;
+    letter-spacing: .02em; padding: .62rem 1.35rem;
+    border-radius: var(--r); cursor: pointer; border: none;
+    transition: all .2s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-dk); transform: translateY(-1px); box-shadow: 0 4px 16px oklch(52% .16 196 / .25); }
+  .btn-outline {
+    background: transparent; color: var(--ink-mid);
+    border: 1px solid var(--rule);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  .hero-affiliations {
+    padding: 1.4rem 0;
+    border-top: 1px solid var(--rule);
+    display: flex; gap: 1.8rem; flex-wrap: wrap; align-items: center;
+    position: relative; z-index: 1;
+    max-width: var(--max); margin: 0 auto; width: 100%;
+  }
+  .affil-label {
+    font-family: var(--ff-mono); font-size: .65rem;
+    letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink-muted); flex-shrink: 0;
+  }
+  .affil-list { display: flex; gap: 1.4rem; flex-wrap: wrap; align-items: center; }
+  .affil-item {
+    font-size: .8rem; color: var(--ink-muted); transition: color .2s;
+  }
+  .affil-item:hover { color: var(--accent); }
+  .affil-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--rule); }
+
+  /* ── SECTION SHARED ── */
+  section { padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 3.5rem); }
+  .section-inner { max-width: var(--max); margin: 0 auto; }
+  .section-header {
+    display: flex; align-items: baseline; gap: 1.2rem;
+    margin-bottom: 2.8rem;
+  }
+  .section-num {
+    font-family: var(--ff-mono); font-size: .68rem;
+    color: var(--accent); letter-spacing: .06em;
+  }
+  h2.section-title {
+    font-family: var(--ff-serif);
+    font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+    font-weight: 400; color: var(--ink); letter-spacing: -.02em;
+  }
+  .section-rule { flex: 1; height: 1px; background: var(--rule); margin-bottom: 4px; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--bg); }
+  .about-top {
+    display: grid; grid-template-columns: 96px 1fr;
+    gap: 2rem; align-items: start; margin-bottom: 2.2rem;
+  }
+  .avatar-wrap {
+    width: 96px; height: 96px; border-radius: 50%;
+    overflow: hidden; border: 2px solid var(--rule);
+    flex-shrink: 0;
+  }
+  .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .avatar-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--ff-serif); font-size: 1.8rem;
+    color: var(--accent); background: var(--accent-lt);
+  }
+  .about-meta { display: flex; flex-direction: column; gap: .5rem; justify-content: center; }
+  .about-name {
+    font-family: var(--ff-serif); font-size: 1.4rem;
+    color: var(--ink); font-weight: 400;
+  }
+  .about-role {
+    font-size: .85rem; color: var(--ink-mid); line-height: 1.5;
+  }
+  .about-role strong { color: var(--accent); font-weight: 500; }
+  .about-body { display: flex; flex-direction: column; gap: 1rem; }
+  .about-body p {
+    font-size: 1rem; line-height: 1.8;
+    color: var(--ink-mid); text-wrap: pretty;
+  }
+  .about-body strong { color: var(--ink); font-weight: 600; }
+  .about-body a { color: var(--accent); border-bottom: 1px solid oklch(52% .16 196 / .25); transition: border-color .2s; }
+  .about-body a:hover { border-color: var(--accent); }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+    gap: 1px; background: var(--rule);
+    border: 1px solid var(--rule); border-radius: var(--r);
+    overflow: hidden; margin-top: 2rem;
+  }
+  .topic-cell {
+    background: var(--card); padding: 1.2rem 1.4rem;
+    transition: background .2s;
+  }
+  .topic-cell:hover { background: var(--accent-lt); }
+  .topic-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); margin-bottom: .7rem;
+  }
+  .topic-name { font-size: .82rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .topic-desc { font-size: .73rem; color: var(--ink-muted); margin-top: .2rem; line-height: 1.4; }
+
+  /* ── PUBLICATIONS ── */
+  #publications { background: var(--bg-alt); }
+  .pub-list { display: flex; flex-direction: column; gap: 1px; }
+  .pub-item {
+    background: var(--card);
+    padding: 1.4rem 1.6rem;
+    display: grid; grid-template-columns: 42px 1fr 60px;
+    gap: 1rem; align-items: start;
+    border-left: 2px solid transparent;
+    transition: border-color .2s, background .2s;
+  }
+  .pub-item:first-child { border-radius: var(--r) var(--r) 0 0; }
+  .pub-item:last-child  { border-radius: 0 0 var(--r) var(--r); }
+  .pub-item:hover { border-left-color: var(--accent); background: oklch(99% .005 230); }
+  .pub-year {
+    font-family: var(--ff-mono); font-size: .68rem;
+    color: var(--accent); letter-spacing: .04em; padding-top: 3px;
+  }
+  .pub-title {
+    font-size: .92rem; font-weight: 500;
+    color: var(--ink); line-height: 1.45; margin-bottom: .35rem;
+  }
+  .pub-authors { font-size: .76rem; color: var(--ink-muted); line-height: 1.5; }
+  .pub-authors em { color: var(--accent-dk); font-style: normal; font-weight: 500; }
+  .pub-venue {
+    font-family: var(--ff-mono); font-size: .66rem;
+    color: var(--ink-muted); text-align: right; padding-top: 3px;
+  }
+  .pub-award {
+    display: inline-block; margin-top: .35rem;
+    font-family: var(--ff-mono); font-size: .62rem;
+    letter-spacing: .04em; padding: .15rem .55rem;
+    background: oklch(95% .08 85); color: oklch(38% .12 85);
+    border-radius: 3px;
+  }
+  .pub-footer { margin-top: 2rem; text-align: center; }
+  .btn-soft {
+    background: var(--accent-lt); color: var(--accent-dk);
+    border: 1px solid oklch(82% .08 196);
+    font-size: .8rem; font-weight: 500; padding: .62rem 1.4rem;
+    border-radius: var(--r);
+    display: inline-flex; align-items: center; gap: .4rem;
+    transition: all .2s;
+  }
+  .btn-soft:hover { background: oklch(88% .10 196); transform: translateY(-1px); }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--bg); }
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+    gap: 1.1rem;
+  }
+  .project-card {
+    background: var(--card); border: 1px solid var(--rule);
+    border-radius: var(--r); padding: 1.6rem;
+    display: flex; flex-direction: column; gap: .9rem;
+    transition: box-shadow .2s, transform .2s;
+    position: relative; overflow: hidden;
+  }
+  .project-card::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .3s;
+  }
+  .project-card:hover { box-shadow: 0 6px 24px oklch(0% 0 0 / .06); transform: translateY(-2px); }
+  .project-card:hover::after { transform: scaleX(1); }
+  .project-status {
+    font-family: var(--ff-mono); font-size: .62rem;
+    letter-spacing: .07em; text-transform: uppercase;
+    padding: .18rem .55rem; border-radius: 100px;
+    display: inline-flex; width: fit-content;
+  }
+  .s-active   { background: oklch(93% .09 155); color: oklch(32% .14 155); }
+  .s-finished { background: var(--bg-alt); color: var(--ink-muted); }
+  .project-name { font-size: .95rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .project-desc { font-size: .8rem; color: var(--ink-mid); line-height: 1.6; flex: 1; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: auto; }
+  .ptag {
+    font-family: var(--ff-mono); font-size: .63rem;
+    padding: .18rem .52rem;
+    background: var(--accent-lt); color: var(--accent-dk);
+    border-radius: 3px;
+  }
+  .project-funder { font-size: .7rem; color: var(--ink-muted); font-style: italic; }
+
+  /* ── EXPERIENCE / CV ── */
+  #cv { background: var(--bg-alt); }
+  .cv-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem 4rem;
+  }
+  .cv-col-head {
+    font-family: var(--ff-mono); font-size: .68rem;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.6rem;
+  }
+  .timeline { display: flex; flex-direction: column; }
+  .tl-item {
+    display: grid; grid-template-columns: 14px 1fr;
+    gap: 0 1.2rem; padding-bottom: 1.7rem; position: relative;
+  }
+  .tl-item::before {
+    content: ''; position: absolute;
+    left: 6px; top: 14px; bottom: 0;
+    width: 1px; background: var(--rule);
+  }
+  .tl-item:last-child::before { display: none; }
+  .tl-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg-alt);
+    box-shadow: 0 0 0 1.5px var(--accent);
+    margin-top: 4px; justify-self: center;
+    position: relative; z-index: 1; flex-shrink: 0;
+  }
+  .tl-dot.dim {
+    background: oklch(78% .008 230);
+    box-shadow: 0 0 0 1.5px oklch(78% .008 230);
+  }
+  .tl-period {
+    font-family: var(--ff-mono); font-size: .65rem;
+    color: var(--accent); letter-spacing: .04em; margin-bottom: .2rem;
+  }
+  .tl-role { font-size: .88rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .tl-org { font-size: .78rem; color: var(--ink-mid); margin-top: .12rem; }
+  .tl-detail { font-size: .73rem; color: var(--ink-muted); margin-top: .28rem; line-height: 1.5; }
+  .cv-awards {
+    grid-column: 1 / -1;
+    background: var(--card); border: 1px solid var(--rule);
+    border-radius: var(--r); padding: 1.6rem 2rem;
+  }
+  .award-head {
+    font-family: var(--ff-mono); font-size: .68rem;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.2rem;
+  }
+  .awards-list { display: flex; flex-direction: column; gap: .8rem; }
+  .award-item { display: flex; gap: 1rem; align-items: baseline; }
+  .award-year {
+    font-family: var(--ff-mono); font-size: .65rem;
+    color: var(--accent); flex-shrink: 0; width: 32px;
+  }
+  .award-text { font-size: .82rem; color: var(--ink-mid); line-height: 1.5; }
+  .award-text strong { color: var(--ink); font-weight: 600; }
+  .cv-dl {
+    grid-column: 1 / -1;
+    display: flex; justify-content: center; margin-top: .5rem;
+  }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--bg-dark); }
+  .contact-inner {
+    max-width: var(--max); margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: start;
+  }
+  .contact-eyebrow {
+    font-family: var(--ff-mono); font-size: .68rem;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1rem;
+  }
+  h2.contact-title {
+    font-family: var(--ff-serif);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 400; color: oklch(96% .005 230);
+    letter-spacing: -.02em; line-height: 1.15;
+    margin-bottom: 1.1rem;
+  }
+  .contact-blurb {
+    font-size: .88rem; color: oklch(58% .01 240);
+    line-height: 1.75; text-wrap: pretty;
+  }
+  .contact-links {
+    display: flex; flex-direction: column; gap: .5rem; margin-top: 1.8rem;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: .9rem;
+    font-size: .85rem; color: oklch(62% .01 240);
+    padding: .65rem .9rem;
+    border: 1px solid oklch(30% .025 245);
+    border-radius: var(--r); transition: all .2s;
+  }
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: oklch(78% .08 196);
+    background: oklch(100% 0 0 / .04);
+  }
+  .cl-icon {
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    background: oklch(28% .025 245); border-radius: 4px; flex-shrink: 0;
+  }
+  .cl-icon svg { width: 13px; height: 13px; fill: var(--accent); }
+  .cl-badge {
+    font-family: var(--ff-mono); font-size: .62rem;
+    letter-spacing: .05em; text-transform: uppercase;
+    color: oklch(40% .01 240); margin-left: auto;
+  }
+  /* stats right */
+  .contact-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: oklch(28% .025 245);
+    border: 1px solid oklch(28% .025 245);
+    border-radius: var(--r); overflow: hidden;
+  }
+  .stat-cell {
+    background: oklch(20% .022 245); padding: 1.4rem;
+    transition: background .2s;
+  }
+  .stat-cell:hover { background: oklch(22% .025 245); }
+  .stat-num {
+    font-family: var(--ff-serif);
+    font-size: 2rem; color: oklch(94% .005 230);
+    line-height: 1; margin-bottom: .3rem;
+  }
+  .stat-num span { color: var(--accent); }
+  .stat-label { font-size: .75rem; color: oklch(50% .01 240); line-height: 1.4; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: oklch(13% .018 245);
+    padding: 1.4rem clamp(1.5rem, 5vw, 3.5rem);
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 1rem;
+  }
+  .foot-l { font-family: var(--ff-mono); font-size: .68rem; color: oklch(40% .01 240); letter-spacing: .04em; }
+  .foot-r { font-size: .72rem; color: oklch(40% .01 240); }
+  .foot-r a { color: oklch(52% .08 196); }
+  .foot-r a:hover { color: var(--accent); }
+
+  /* ── ANIMATIONS ── */
+  .fade-up { opacity: 0; transform: translateY(22px); transition: opacity .5s ease, transform .5s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .about-top { grid-template-columns: 1fr; }
+    .cv-grid { grid-template-columns: 1fr; }
+    .contact-inner { grid-template-columns: 1fr; }
+    .pub-item { grid-template-columns: 38px 1fr; }
+    .pub-venue { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav" aria-label="Main navigation">
+  <a href="#hero" class="nav-logo">amr.gomaa</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#publications">Research</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#cv">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" aria-label="Introduction">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Senior ML Security Engineer · Researcher · MATVIS · DFKI · Cambridge</div>
+    <h1 class="hero-name">Amr<br/><em>Gomaa</em></h1>
+    <p class="hero-tagline">
+      Human-centered AI researcher and ML engineer building safe, adaptive, and
+      personalised systems — from LLM security &amp; agentic AI to multimodal HCI
+      and surgical robotics.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">LLM Security</span>
+      <span class="hero-tag">Agentic AI</span>
+      <span class="hero-tag">Continual Learning</span>
+      <span class="hero-tag">Multimodal HCI</span>
+      <span class="hero-tag">Gesture Recognition</span>
+      <span class="hero-tag">Reinforcement Learning</span>
+      <span class="hero-tag">Computer Vision</span>
+      <span class="hero-tag">Surgical Robotics</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="files/CV_AmrGomaa.pdf" target="_blank" class="btn btn-outline">Download CV ↗</a>
+      <a href="https://scholar.google.com/citations?user=xiPvQxwAAAAJ&hl=en" target="_blank" class="btn btn-outline">Google Scholar ↗</a>
+    </div>
+  </div>
+  <div class="hero-affiliations">
+    <span class="affil-label">Affiliated with</span>
+    <div class="affil-list">
+      <a href="https://www.matvis.com" target="_blank" class="affil-item">MATVIS GmbH</a>
+      <span class="affil-sep"></span>
+      <a href="https://www.eng.cam.ac.uk/" target="_blank" class="affil-item">Cambridge University</a>
+      <span class="affil-sep"></span>
+      <a href="https://dfki.de" target="_blank" class="affil-item">DFKI</a>
+      <span class="affil-sep"></span>
+      <a href="https://www.uni-saarland.de/" target="_blank" class="affil-item">Saarland University</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">About</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="about-top fade-up">
+      <div class="avatar-wrap">
+        <img src="images/personal_photo_2.png" alt="Amr Gomaa"
+          onerror="this.parentNode.innerHTML='<div class=avatar-placeholder>AG</div>'" />
+      </div>
+      <div class="about-meta">
+        <div class="about-name">Amr Gomaa</div>
+        <div class="about-role">
+          <strong>Senior ML Security Engineer</strong> at MATVIS GmbH ·
+          Deputy Head &amp; Doctoral Researcher at DFKI ·
+          Visiting Researcher at Cambridge University
+        </div>
+      </div>
+    </div>
+
+    <div class="about-body fade-up">
+      <p>
+        I am a <strong>Senior Machine Learning Security Engineer</strong> at
+        <a href="https://www.matvis.com" target="_blank">MATVIS GmbH</a> in Tübingen, building
+        the security foundation for safe generative AI deployment — including the <strong>AI Firewall</strong>
+        and automated red-teaming for GenAI. I am concurrently a
+        <strong>PhD Visiting Researcher</strong> at the
+        <a href="https://www.eng.cam.ac.uk/" target="_blank">Machine Intelligence Laboratory, Cambridge University</a>,
+        collaborating with Microsoft Cambridge on contextual LLM agents, their evaluation, and robustness,
+        supervised by <a href="https://pokristensson.com/" target="_blank">Prof. Dr. Per Ola Kristensson</a>.
+      </p>
+      <p>
+        I am also <strong>Deputy Head and Doctoral Researcher</strong> at the
+        <a href="https://dfki.de" target="_blank">German Research Center for Artificial Intelligence (DFKI)</a>,
+        where I lead a team of researchers and have secured over <strong>2 million Euros</strong> in research funding.
+        My recent grants include €427,500 for <em>Secure Language Models for Knowledge Management</em> (SisWiss)
+        and €100,000 for hybrid reinforcement and imitation learning (TeachTAM), both funded by the
+        German Federal Ministry of Research (BMFTR, formerly BMBF).
+      </p>
+      <p>
+        My research covers <strong>NLP &amp; LLM Security &amp; Evaluation</strong>,
+        <strong>Incremental &amp; Continual Learning</strong>,
+        <strong>Reinforcement &amp; Imitation Learning</strong>,
+        <strong>Multimodal Interaction &amp; Interface Design</strong>, and
+        <strong>Gesture Recognition &amp; Computer Vision</strong>, applied to
+        automotive, robotics, dialogue systems, and well-being domains,
+        with partners including <strong>Carl Zeiss</strong>, <strong>Microsoft Research</strong>, and <strong>BMW</strong>.
+      </p>
+    </div>
+
+    <div class="topics-grid fade-up">
+      <div class="topic-cell"><div class="topic-dot"></div><div class="topic-name">LLM Security &amp; Evaluation</div><div class="topic-desc">Firewalls, red-teaming, agentic safety</div></div>
+      <div class="topic-cell"><div class="topic-dot"></div><div class="topic-name">Continual &amp; Incremental Learning</div><div class="topic-desc">Personalization, model adaptation</div></div>
+      <div class="topic-cell"><div class="topic-dot"></div><div class="topic-name">Multimodal HCI</div><div class="topic-desc">Interface design, sensor fusion</div></div>
+      <div class="topic-cell"><div class="topic-dot"></div><div class="topic-name">Reinforcement Learning</div><div class="topic-desc">Imitation, apprenticeship, robotics</div></div>
+      <div class="topic-cell"><div class="topic-dot"></div><div class="topic-name">Gesture &amp; Computer Vision</div><div class="topic-desc">Video understanding, contrastive learning</div></div>
+      <div class="topic-cell"><div class="topic-dot"></div><div class="topic-name">Adaptive Interfaces</div><div class="topic-desc">Automotive, surgical robotics, well-being</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Selected Publications</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="pub-list">
+
+      <div class="pub-item fade-up">
+        <span class="pub-year">2025</span>
+        <div>
+          <div class="pub-title">ConVerse: Benchmarking Contextual Safety in Agent-to-Agent Conversations</div>
+          <div class="pub-authors"><em>Amr Gomaa</em>, Ahmed Salem, Sahar Abdelnabi</div>
+        </div>
+        <span class="pub-venue">arXiv</span>
+      </div>
+
+      <div class="pub-item fade-up">
+        <span class="pub-year">2025</span>
+        <div>
+          <div class="pub-title">Firewalls to Secure Dynamic LLM Agentic Networks</div>
+          <div class="pub-authors"><em>Amr Gomaa*</em>, Sahar Abdelnabi*, Eugene Bagdasarian, Per Ola Kristensson, Reza Shokri &nbsp;<span style="font-size:.68rem;color:var(--ink-muted)">(*equal contribution)</span></div>
+        </div>
+        <span class="pub-venue">arXiv</span>
+      </div>
+
+      <div class="pub-item fade-up">
+        <span class="pub-year">2024</span>
+        <div>
+          <div class="pub-title">Cooperation, Competition, and Maliciousness: LLM-Stakeholders Interactive Negotiation</div>
+          <div class="pub-authors">Sahar Abdelnabi, <em>Amr Gomaa</em>, Sarath Sivaprasad, Lea Schönherr, Mario Fritz</div>
+        </div>
+        <span class="pub-venue">NeurIPS</span>
+      </div>
+
+      <div class="pub-item fade-up">
+        <span class="pub-year">2024</span>
+        <div>
+          <div class="pub-title">Toward a Surgeon-in-the-Loop Ophthalmic Robotic Apprentice using Reinforcement and Imitation Learning</div>
+          <div class="pub-authors"><em>Amr Gomaa</em>, Bilal Mahdy, Niko Kleer, Antonio Krüger</div>
+        </div>
+        <span class="pub-venue">IROS</span>
+      </div>
+
+      <div class="pub-item fade-up">
+        <span class="pub-year">2024</span>
+        <div>
+          <div class="pub-title">Looking for a Better Fit? An Incremental Learning Multimodal Object Referencing Framework Adapting to Individual Drivers</div>
+          <div class="pub-authors"><em>Amr Gomaa</em>, Guillermo Reyes, Michael Feld, Antonio Krüger</div>
+        </div>
+        <span class="pub-venue">IUI</span>
+      </div>
+
+      <div class="pub-item fade-up">
+        <span class="pub-year">2023</span>
+        <div>
+          <div class="pub-title">Toward Adaptive User-Centered Neuro-Symbolic Learning for Multimodal Interaction with Autonomous Systems</div>
+          <div class="pub-authors"><em>Amr Gomaa</em>, Michael Feld</div>
+          <div><span class="pub-award">🏆 3rd Place Blue Sky — ICMI 2023</span></div>
+        </div>
+        <span class="pub-venue">ICML WS · ICMI</span>
+      </div>
+
+      <div class="pub-item fade-up">
+        <span class="pub-year">2023</span>
+        <div>
+          <div class="pub-title">Unveiling the Role of Expert Guidance: Comparative Analysis of User-centered Imitation Learning vs. Traditional RL</div>
+          <div class="pub-authors"><em>Amr Gomaa</em>, Bilal Mahdy</div>
+          <div><span class="pub-award">🏆 Best Paper — HITLAML Workshop 2023</span></div>
+        </div>
+        <span class="pub-venue">HITLAML</span>
+      </div>
+
+      <div class="pub-item fade-up">
+        <span class="pub-year">2023</span>
+        <div>
+          <div class="pub-title">It's all about you: Personalized in-Vehicle Gesture Recognition with a Time-of-Flight Camera</div>
+          <div class="pub-authors"><em>Amr Gomaa*</em>, Guillermo Reyes*, Michael Feld</div>
+        </div>
+        <span class="pub-venue">AutomotiveUI</span>
+      </div>
+
+      <div class="pub-item fade-up">
+        <span class="pub-year">2021</span>
+        <div>
+          <div class="pub-title">ML-PersRef: A Machine Learning-Based Personalized Multimodal Fusion Approach for Referencing Outside Objects From a Moving Vehicle</div>
+          <div class="pub-authors"><em>Amr Gomaa</em>, Guillermo Reyes, Michael Feld</div>
+        </div>
+        <span class="pub-venue">ICMI</span>
+      </div>
+
+    </div>
+    <div class="pub-footer">
+      <a href="https://scholar.google.com/citations?user=xiPvQxwAAAAJ&hl=en" target="_blank" class="btn-soft">
+        View all 30+ publications on Google Scholar ↗
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Projects</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="project-grid">
+
+      <div class="project-card fade-up">
+        <span class="project-status s-active">Active</span>
+        <div class="project-name">AI Firewall &amp; GenAI Red-Teaming</div>
+        <div class="project-desc">Building the security foundation for safe generative AI deployment at MATVIS — including the AI Firewall (identifying &amp; managing risks) and automated penetration testing for GenAI applications.</div>
+        <div class="project-tags"><span class="ptag">LLM Security</span><span class="ptag">GenAI</span><span class="ptag">MLOps</span></div>
+        <div class="project-funder">MATVIS GmbH</div>
+      </div>
+
+      <div class="project-card fade-up">
+        <span class="project-status s-active">Active</span>
+        <div class="project-name">SisWiss</div>
+        <div class="project-desc">Secure Knowledge Management with LLMs — developing robust, privacy-aware agentic architectures for secure enterprise knowledge systems using retrieval-augmented generation and LLM evaluation.</div>
+        <div class="project-tags"><span class="ptag">LLMs</span><span class="ptag">RAG</span><span class="ptag">Security</span></div>
+        <div class="project-funder">Funded by BMFTR (€427,500)</div>
+      </div>
+
+      <div class="project-card fade-up">
+        <span class="project-status s-active">Active</span>
+        <div class="project-name">TeachTAM</div>
+        <div class="project-desc">Machine Teaching with Hybrid Neuro-Symbolic Reinforcement Learning via the Apprenticeship Model — a real-time practical teaching system using Imitation Learning, Behavioral Cloning, and Inverse RL.</div>
+        <div class="project-tags"><span class="ptag">RL</span><span class="ptag">Imitation Learning</span><span class="ptag">Robotics</span></div>
+        <div class="project-funder">Funded by BMFTR (€100,000)</div>
+      </div>
+
+      <div class="project-card fade-up">
+        <span class="project-status s-active">Active</span>
+        <div class="project-name">LLM Contextual Agents (Cambridge)</div>
+        <div class="project-desc">Feasible LLM solutions for the HCI design process — enabling designers to build more controllable interfaces using natural language. In collaboration with Microsoft Cambridge.</div>
+        <div class="project-tags"><span class="ptag">LLM Agents</span><span class="ptag">HCI</span><span class="ptag">NLP</span></div>
+        <div class="project-funder">Cambridge · Microsoft Research</div>
+      </div>
+
+      <div class="project-card fade-up">
+        <span class="project-status s-active">Active</span>
+        <div class="project-name">FedWell</div>
+        <div class="project-desc">Federated learning for well-being and rehabilitation applications — privacy-preserving personalized model adaptation across distributed user data without centralized collection.</div>
+        <div class="project-tags"><span class="ptag">Federated Learning</span><span class="ptag">Well-being</span><span class="ptag">Privacy</span></div>
+      </div>
+
+      <div class="project-card fade-up">
+        <span class="project-status s-finished">Finished</span>
+        <div class="project-name">CAMELOT</div>
+        <div class="project-desc">Adaptive multimodal fusion for personalized object referencing in a moving vehicle. Incremental learning pipeline adapting to individual driver behavior — enhancing features in BMW &amp; Mercedes-Benz vehicles.</div>
+        <div class="project-tags"><span class="ptag">Multimodal</span><span class="ptag">Automotive</span><span class="ptag">Incremental Learning</span></div>
+        <div class="project-funder">BMW · Mercedes-Benz</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE / CV -->
+<section id="cv">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Experience &amp; CV</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="cv-grid">
+
+      <!-- Positions -->
+      <div class="fade-up">
+        <div class="cv-col-head">Positions</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-period">Sep 2025 – ongoing</div>
+              <div class="tl-role">Senior ML Security Engineer</div>
+              <div class="tl-org">MATVIS GmbH, Tübingen</div>
+              <div class="tl-detail">AI Firewall design, scalable ML architectures, MLOps, GenAI red-teaming &amp; compliance.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-period">Aug 2024 – ongoing</div>
+              <div class="tl-role">PhD Visiting Researcher</div>
+              <div class="tl-org">Cambridge University · Microsoft Research Cambridge</div>
+              <div class="tl-detail">LLM agents for HCI design; contextual LLM evaluation &amp; robustness. Supervised by Prof. Dr. Per Ola Kristensson.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-period">Apr 2020 – ongoing (consultant)</div>
+              <div class="tl-role">Deputy Head &amp; Doctoral Researcher</div>
+              <div class="tl-org">DFKI — Adaptive Interfaces &amp; Dialogue Group</div>
+              <div class="tl-detail">Led team of 4–6; secured ~€2M in grants; supervised MSc/BSc theses; published at CHI, NeurIPS, IROS, IUI, ICMI.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dim"></div>
+            <div>
+              <div class="tl-period">Apr 2022 – ongoing</div>
+              <div class="tl-role">Project Lead — TeachTAM &amp; SisWiss</div>
+              <div class="tl-org">DFKI (BMFTR-funded)</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dim"></div>
+            <div>
+              <div class="tl-period">Apr 2019 – Apr 2020</div>
+              <div class="tl-role">Junior Researcher</div>
+              <div class="tl-org">DFKI — Intelligent User Interfaces</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dim"></div>
+            <div>
+              <div class="tl-period">Nov 2017 – Apr 2019</div>
+              <div class="tl-role">Research Assistant</div>
+              <div class="tl-org">HCI Group, Saarland University</div>
+              <div class="tl-detail">Wearable &amp; on-skin electronics; published at UIST.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dim"></div>
+            <div>
+              <div class="tl-period">2013 – 2017</div>
+              <div class="tl-role">Senior RF Engineer / Project Manager</div>
+              <div class="tl-org">Vodafone Egypt</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="fade-up">
+        <div class="cv-col-head">Education</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-period">Sep 2020 – Submitted</div>
+              <div class="tl-role">Ph.D. — Computer Science</div>
+              <div class="tl-org">Saarland University · DFKI</div>
+              <div class="tl-detail">Human-Centered AI, Incremental Learning, Model Adaptation. Advisor: Prof. Dr. Antonio Krüger.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dim"></div>
+            <div>
+              <div class="tl-period">Oct 2017 – Apr 2020</div>
+              <div class="tl-role">M.Sc. — Computer Science</div>
+              <div class="tl-org">Saarland University</div>
+              <div class="tl-detail">GPA: 1.4 / Thesis GPA: 1.3</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dim"></div>
+            <div>
+              <div class="tl-period">2008 – 2013</div>
+              <div class="tl-role">B.Sc. — Telecommunications &amp; Electronics Engineering</div>
+              <div class="tl-org">Ain Shams University, Egypt</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 2rem;">
+          <div class="cv-col-head">Service</div>
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-dot dim"></div>
+              <div>
+                <div class="tl-role">Associate Chair / Program Committee</div>
+                <div class="tl-org">AutomotiveUI 2024 &amp; 2023 (AC) · HITLAML 2023 (PC)</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot dim"></div>
+              <div>
+                <div class="tl-role">Reviewer (Outstanding Review Award)</div>
+                <div class="tl-org">CHI 2023/24 · IMWUT 2023 · IEEE VR 2023 · AutomotiveUI 2021–24 · NordiCHI 2022 · ICMI 2021</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Awards -->
+      <div class="cv-awards fade-up">
+        <div class="award-head">Grants &amp; Awards</div>
+        <div class="awards-list">
+          <div class="award-item">
+            <span class="award-year">2025</span>
+            <span class="award-text"><strong>€427,500 research grant</strong> — Secure Language Models for Knowledge Management (SisWiss). German Federal Ministry of Research (BMFTR). Total consortium: €1,800,000.</span>
+          </div>
+          <div class="award-item">
+            <span class="award-year">2023</span>
+            <span class="award-text"><strong>Best Paper Award</strong> — HITLAML Workshop at ICML</span>
+          </div>
+          <div class="award-item">
+            <span class="award-year">2023</span>
+            <span class="award-text"><strong>3rd Place — Blue Sky Papers</strong> at ICMI</span>
+          </div>
+          <div class="award-item">
+            <span class="award-year">2022</span>
+            <span class="award-text"><strong>€100,000 research grant</strong> — Hybrid RL &amp; Imitation Learning (TeachTAM). German Federal Ministry of Research (BMFTR).</span>
+          </div>
+          <div class="award-item">
+            <span class="award-year">2019</span>
+            <span class="award-text"><strong>DAAD STIBET III Scholarship</strong> — Saarland University scholarship for international students.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-dl">
+        <a href="files/CV_AmrGomaa.pdf" target="_blank" class="btn btn-primary">Download full CV (PDF) ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="fade-up">
+      <div class="contact-eyebrow">Get in touch</div>
+      <h2 class="contact-title">Open to collaborations &amp; conversations</h2>
+      <p class="contact-blurb">
+        Whether it's research collaboration, industry partnership, student supervision,
+        or a conversation about LLM security, HCI, or adaptive AI — I'd love to hear from you.
+      </p>
+      <div class="contact-links">
+        <a href="/cdn-cgi/l/email-protection#a5c4c8d78bc2cac8c4c4e5c1c3cecc8bc1c0" class="contact-link">
+          <span class="cl-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></span>
+          <span class="__cf_email__" data-cfemail="82e3eff0ace5edefe3e3c2e6e4e9ebace6e7">[email&#160;protected]</span>
+          <span class="cl-badge">Email</span>
+        </a>
+        <a href="https://www.linkedin.com/in/amrgomaaelhady" target="_blank" class="contact-link">
+          <span class="cl-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></span>
+          linkedin.com/in/amrgomaaelhady
+          <span class="cl-badge">LinkedIn</span>
+        </a>
+        <a href="https://github.com/amrgomaaelhady" target="_blank" class="contact-link">
+          <span class="cl-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg></span>
+          github.com/amrgomaaelhady
+          <span class="cl-badge">GitHub</span>
+        </a>
+        <a href="https://scholar.google.com/citations?user=xiPvQxwAAAAJ&hl=en" target="_blank" class="contact-link">
+          <span class="cl-icon"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18V17h2v-4.82L12 15l11-6L12 3zM5 13.18V17c0 1.66 3.13 3 7 3s7-1.34 7-3v-3.82l-7 3.82-7-3.82z"/></svg></span>
+          Google Scholar
+          <span class="cl-badge">Scholar</span>
+        </a>
+        <a href="https://twitter.com/amrgomaaelhady" target="_blank" class="contact-link">
+          <span class="cl-icon"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span>
+          @amrgomaaelhady
+          <span class="cl-badge">X / Twitter</span>
+        </a>
+      </div>
+    </div>
+    <div class="contact-stats fade-up">
+      <div class="stat-cell">
+        <div class="stat-num">30<span>+</span></div>
+        <div class="stat-label">Publications at NeurIPS, IROS, CHI, ICMI &amp; more</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">€2<span>M+</span></div>
+        <div class="stat-label">Research funding secured (BMFTR &amp; consortium)</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">5<span>+</span></div>
+        <div class="stat-label">Years doctoral research at DFKI</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">119<span>+</span></div>
+        <div class="stat-label">Citations on Google Scholar</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-l">© 2026 Amr Gomaa · Saarbrücken / Tübingen, Germany</div>
+  <div class="foot-r">
+    <a href="https://orcid.org/0000-0003-0955-3181" target="_blank">ORCID</a> ·
+    <a href="https://www.researchgate.net/profile/Amr-Gomaa-3" target="_blank">ResearchGate</a> ·
+    <a href="files/CV_AmrGomaa.pdf" target="_blank">CV PDF</a>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // Fade-up on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const siblings = [...(entry.target.parentElement?.querySelectorAll('.fade-up') || [])];
+      const idx = siblings.indexOf(entry.target);
+      setTimeout(() => entry.target.classList.add('visible'), idx * 70);
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  const secObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+      }
+    });
+  }, { threshold: 0.35 });
+  sections.forEach(s => secObs.observe(s));
+</script>
+</body>
+</html>
